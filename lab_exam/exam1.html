@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>News Articles</title>
+    <style>
+        body { 
+            font-family: Arial; 
+            margin: 0; 
+            display: flex;
+            justify-content: center;
+            background: #f5f5f5;
+        }
+        .page {
+            width: 800px; 
+            background: white;
+            padding: 30px;
+            margin: 30px 0;
+        }
+        .article { 
+            margin-bottom: 50px; 
+            padding: 20px; 
+            border: 1px solid #ddd; 
+        }
+        .comment-section { 
+            margin-top: 20px; 
+            border-top: 2px solid #333; 
+            padding-top: 15px; 
+        }
+        .error { 
+            color: red; 
+            font-size: 14px; 
+        }
+        .stars span {
+            font-size: 22px;
+            cursor: pointer;
+        }
+        .comment-box { 
+            border: 1px solid #ccc; 
+            padding: 10px; 
+            margin-top: 10px; 
+        }
+        textarea {
+            width: 95%;
+            height: 120px;  
+        }
+        input[type="text"] {
+            width: 95%;
+        }
+    </style>
+</head>
+<body>
+<div class="page">
+<h1>Ajker WebTech</h1>
+<!-- ARTICLE 1 -->
+<div class="article">
+    <h2>The Intelligent Web: 2025 Trends</h2>
+    <p>
+        The web development landscape is undergoing its most significant shift in a decade, moving away from static pages toward intelligent, adaptive systems. Leading this charge is Generative UI, where interfaces are no longer hard-coded but are generated in real-time by AI to match user intent. This allows applications to dynamically render charts, forms, or widgets based on what the user needs at that exact moment, rather than forcing them through a generic layout.
+        Under the hood, performance is king. WebAssembly (Wasm) has finally matured, allowing developers to run heavy-duty code (like Rust or C++) directly in the browser at near-native speeds, making the web a viable platform for video editing and complex 3D rendering. Simultaneously, the industry is correcting the "bloat" of the past few years by embracing Server-First architectures and Edge Computing. By moving logic off the user's device and onto servers located physically closer to them, apps are becoming lighter, faster, and more battery-efficient.
+        Finally, security has become seamless. The era of the password is rapidly ending in favor of Passkeys, which use biometric standards (like FaceID) to authenticate users without the risk of phishing. In short, the modern web stack is becoming smarter, physically distributed, and far more secure.
+    </p>
+    <div class="comment-section" id="section1">
+        <h3>Comments & Ratings</h3>
+        <p>Total Comments: <span id="totalComments1">0</span></p>
+        <p>Average Rating: <span id="avgRating1">0</span></p>
+        <form onsubmit="return submitComment(1)">
+            <label>Name:</label><br>
+            <input type="text" id="name1"><br>
+            <span id="nameError1" class="error"></span><br>
+            <label>Email (optional):</label><br>
+            <input type="text" id="email1"><br>
+            <span id="emailError1" class="error"></span><br>
+            <label>Comment:</label><br>
+            <textarea id="comment1"></textarea><br>
+            <span id="commentError1" class="error"></span><br>
+            <label>Rating (optional):</label><br>
+            <div class="stars" id="stars1">
+                <span onclick="setRating(1,1)">★</span>
+                <span onclick="setRating(2,1)">★</span>
+                <span onclick="setRating(3,1)">★</span>
+                <span onclick="setRating(4,1)">★</span>
+                <span onclick="setRating(5,1)">★</span>
+            </div>
+            <p>Selected Rating: <span id="selectedRating1">0</span></p>
+            <button type="submit">Submit Comment</button>
+        </form>
+        <div id="commentList1"></div>
+    </div>
+</div>
+<!-- ARTICLE 2 -->
+<div class="article">
+    <h2>The Renaissance of CSS and Native Interactivity</h2>
+    <p>
+        While architecture shifts to the server, the browser’s visual capabilities are undergoing their own revolution. We are moving past the era of relying on heavy JavaScript libraries for basic interactivity. New standards like the View Transitions API are changing the game, allowing websites to morph smoothly between pages just like native mobile apps, without the complexity of tools like Framer Motion. Simultaneously, Container Queries have finally solved the longest-standing problem in responsive design: allowing components to adapt based on the size of their parent container rather than the entire screen. This enables true modularity, where a "card" component looks perfect whether it's in a sidebar or a full-width hero section.
+        On the graphics front, WebGPU is the new standard unlocking the raw power of modern hardware. Unlike its predecessor WebGL, WebGPU provides low-level access to the GPU for both advanced graphics and general computation. This means high-fidelity 3D rendering and even running local AI models directly in the browser tab are now possible with incredible efficiency. We are also seeing a "return to the platform," where developers are ditching custom UI overlays in favor of native HTML elements like the Popover API and  dialog  tags. The result is a web that is not only more visually stunning but significantly more accessible and lightweight.
+    </p>
+    <div class="comment-section" id="section2">
+        <h3>Comments & Ratings</h3>
+        <p>Total Comments: <span id="totalComments2">0</span></p>
+        <p>Average Rating: <span id="avgRating2">0</span></p>
+        <form onsubmit="return submitComment(2)">
+            <label>Name:</label><br>
+            <input type="text" id="name2"><br>
+            <span id="nameError2" class="error"></span><br>
+            <label>Email (optional):</label><br>
+            <input type="text" id="email2"><br>
+            <span id="emailError2" class="error"></span><br>
+            <label>Comment:</label><br>
+            <textarea id="comment2"></textarea><br>
+            <span id="commentError2" class="error"></span><br>
+            <label>Rating (optional):</label><br>
+            <div class="stars" id="stars2">
+                <span onclick="setRating(1,2)">★</span>
+                <span onclick="setRating(2,2)">★</span>
+                <span onclick="setRating(3,2)">★</span>
+                <span onclick="setRating(4,2)">★</span>
+                <span onclick="setRating(5,2)">★</span>
+            </div>
+            <p>Selected Rating: <span id="selectedRating2">0</span></p>
+            <button type="submit">Submit Comment</button>
+        </form>
+        <div id="commentList2"></div>
+    </div>
+</div>
+</div> 
+<script>
+let comments = { 1: [], 2: [] };
+let ratings = { 1: [], 2: [] };
+let selectedRating = { 1: 0, 2: 0 };
+function setRating(star, articleId) {
+    selectedRating[articleId] = star;
+    document.getElementById("selectedRating" + articleId).innerText = star;
+}
+function submitComment(articleId) {
+    let name = document.getElementById("name" + articleId).value.trim();
+    let email = document.getElementById("email" + articleId).value.trim();
+    let comment = document.getElementById("comment" + articleId).value.trim();
+    let rating = selectedRating[articleId];
+    document.getElementById("nameError" + articleId).innerText = "";
+    document.getElementById("emailError" + articleId).innerText = "";
+    document.getElementById("commentError" + articleId).innerText = "";
+    let valid = true;
+    if (name.length < 2 || name.length > 50) {
+        document.getElementById("nameError" + articleId).innerText =
+            "Name should be between 2 and 50 characters";
+        valid = false;
+    }
+    if (email.length > 0 && !email.includes("@")) {
+        document.getElementById("emailError" + articleId).innerText =
+            "Please enter a valid email address";
+        valid = false;
+    }
+    if (comment.length < 10 || comment.length > 500) {
+        document.getElementById("commentError" + articleId).innerText =
+            "Comment should between 10 and 500 characters";
+        valid = false;
+    }
+    if (!valid) return false;
+    comments[articleId].push({ name, email, comment, rating });
+    if (rating > 0) ratings[articleId].push(rating);
+    updateDisplay(articleId);
+    document.getElementById("name" + articleId).value = "";
+    document.getElementById("email" + articleId).value = "";
+    document.getElementById("comment" + articleId).value = "";
+    selectedRating[articleId] = 0;
+    document.getElementById("selectedRating" + articleId).innerText = 0;
+    return false;
+}
+function updateDisplay(articleId) {
+    document.getElementById("totalComments" + articleId).innerText =
+        comments[articleId].length;
+    let avg = 0;
+    if (ratings[articleId].length > 0) {
+        let sum = 0;
+        for (let r of ratings[articleId]) sum += r;
+        avg = (sum / ratings[articleId].length).toFixed(1);
+    }
+    document.getElementById("avgRating" + articleId).innerText = avg;
+    let list = document.getElementById("commentList" + articleId);
+    list.innerHTML = "";
+    comments[articleId].forEach(function(item) {
+        let box = document.createElement("div");
+        box.className = "comment-box";
+        box.innerHTML =
+            "<strong>" + item.name + "</strong> <br>" +
+            "Rating: " + (item.rating || "No Rating") + "<br>" +
+            "<p>" + item.comment + "</p>";
+        list.appendChild(box);
+    });
+}
+</script>
+</body>
+</html>
